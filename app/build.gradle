@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -44,6 +45,7 @@ dependencies {
     // Stetho debugger
     compile 'com.facebook.stetho:stetho:1.4.2'
     compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+    compile 'com.uphyca:stetho_realm:2.0.0'
 
     // Firebase and google sign in
     compile 'com.google.android.gms:play-services-auth:10.0.1'

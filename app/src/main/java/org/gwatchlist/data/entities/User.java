@@ -1,12 +1,16 @@
 package org.gwatchlist.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
+
+import io.realm.RealmObject;
 
 /**
  *
  * Created by giovanni on 30/01/17.
  */
-public class User {
+public class User extends RealmObject {
 
     private long id;
     private String email;
@@ -16,6 +20,9 @@ public class User {
 
     private int loginCount;
     private Preferences preferences;
+
+    @JsonIgnore
+    private boolean active;
 
     public long getId() {
         return id;
@@ -71,5 +78,13 @@ public class User {
 
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

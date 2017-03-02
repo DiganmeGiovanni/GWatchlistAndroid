@@ -3,6 +3,9 @@ package org.gwatchlist;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
+
+import io.realm.Realm;
 
 /**
  *
@@ -14,6 +17,12 @@ public class GWatchlistApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Stetho.initializeWithDefaults(this);
+        Stetho.Initializer initializer = Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                .build();
+        Stetho.initialize(initializer);
+
+        Realm.init(this);
     }
 }

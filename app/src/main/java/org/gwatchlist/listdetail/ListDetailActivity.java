@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import org.gwatchlist.R;
+import org.gwatchlist.login.LoginFragment;
+import org.gwatchlist.util.ActivityUtils;
 
 /**
  *
@@ -27,6 +29,20 @@ public class ListDetailActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setDisplayShowHomeEnabled(true);
         }
+
+        // Recover previosly used fragment
+        ListDetailFragment listDetailFragment = (ListDetailFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.contentFrame);
+        if (listDetailFragment == null) {
+            listDetailFragment = new ListDetailFragment();
+            ActivityUtils.addFragmentToActivity(
+                    getSupportFragmentManager(),
+                    listDetailFragment,
+                    R.id.contentFrame
+            );
+        }
+
+        new ListDetailPresenter(listDetailFragment);
 
     }
 }
