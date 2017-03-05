@@ -1,4 +1,4 @@
-package org.gwatchlist.listdetail;
+package org.gwatchlist.addmovie.search;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,16 +11,14 @@ import org.gwatchlist.util.ActivityUtils;
 
 /**
  *
- * Created by giovanni on 28/02/17.
+ * Created by giovanni on 4/03/17.
  */
-public class ListDetailActivity extends AppCompatActivity {
-    public static final String LIST_ID = "LIST_ID";
-    public static final long LIST_PERSONAL = 0;
+public class MovieSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_list_detail);
+        setContentView(R.layout.act_add_movie);
 
         // Set up the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -31,20 +29,19 @@ public class ListDetailActivity extends AppCompatActivity {
             ab.setDisplayShowHomeEnabled(true);
         }
 
-        // Recover previously used fragment
-        ListDetailFragment listDetailFragment = (ListDetailFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.contentFrame);
-        if (listDetailFragment == null) {
-            listDetailFragment = new ListDetailFragment();
+        // Reuse previous fragment
+        MovieSearchFragment movieSearchFragment = (MovieSearchFragment)
+                getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        if (movieSearchFragment == null) {
+            movieSearchFragment = new MovieSearchFragment();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(),
-                    listDetailFragment,
+                    movieSearchFragment,
                     R.id.contentFrame
             );
         }
 
         // Initialize presenter
-        long listId = getIntent().getLongExtra(LIST_ID, 0);
-        new ListDetailPresenter(listDetailFragment, listId);
+        new MovieSearchPresenter(movieSearchFragment);
     }
 }

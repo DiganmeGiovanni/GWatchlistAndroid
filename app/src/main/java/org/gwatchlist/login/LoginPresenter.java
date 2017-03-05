@@ -8,6 +8,7 @@ import org.gwatchlist.webservices.WSCallback;
 import org.gwatchlist.data.entities.User;
 
 import io.realm.Realm;
+import io.realm.RealmObject;
 
 /**
  *
@@ -42,9 +43,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if (success) {
 
                     // Persist active user to database
-                    user.setActive(true);
                     userDao.deactivateAll();
-                    userDao.save(user);
+                    user.setActive(true);
+                    user = userDao.create(user);
 
                     // Go to personal list
                     mLoginView.showPersonalList(user);

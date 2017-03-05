@@ -18,9 +18,7 @@ class ListDetailContract {
 
         void addMovie();
 
-        void fetchList(long listId);
-
-        void fetchPersonalList();
+        void fetchList();
 
         void loadMovies(boolean forceUpdate);
 
@@ -32,8 +30,6 @@ class ListDetailContract {
     interface View extends BaseView<Presenter> {
 
         void setLoadingIndicator(boolean isLoading);
-
-        void showAddMovie();
 
         void showMovieDetailsUI(long movieId);
 

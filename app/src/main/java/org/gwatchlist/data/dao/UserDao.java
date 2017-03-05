@@ -17,10 +17,12 @@ public class UserDao {
         this.realm = realm;
     }
 
-    public void save(User user) {
+    public User create(User user) {
         realm.beginTransaction();
-        realm.copyToRealm(user);
+        user = realm.copyToRealm(user);
         realm.commitTransaction();
+
+        return user;
     }
 
     public void deactivateAll() {

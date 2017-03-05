@@ -1,10 +1,12 @@
 package org.gwatchlist.data.entities;
 
+import io.realm.RealmObject;
+
 /**
  *
  * Created by giovanni on 1/02/17.
  */
-public class Preferences {
+public class Preferences extends RealmObject {
 
     private boolean notifyOnMovieAdded;
     private boolean notifyOnListShared;

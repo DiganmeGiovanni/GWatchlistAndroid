@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:contentDescription="@string/movie_poster"
+        android:layout_width="101dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/movie_poster"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_toEndOf="@id/iv_poster"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textSize="17sp"
+            tools:text="Star Wars: The Force "/>
+
+        <TextView
+            android:id="@+id/tv_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            tools:text="@string/app_name"/>
+    </LinearLayout>
+</RelativeLayout>

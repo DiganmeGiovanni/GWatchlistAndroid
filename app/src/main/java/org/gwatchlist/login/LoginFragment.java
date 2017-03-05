@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.gwatchlist.R;
 import org.gwatchlist.data.entities.User;
+import org.gwatchlist.listdetail.ListDetailActivity;
 import org.gwatchlist.util.GraphicUtils;
 
 /**
@@ -118,7 +119,14 @@ public class LoginFragment extends Fragment implements LoginContract.View,
     @Override
     public void showPersonalList(User user) {
         GraphicUtils.hideProgressDialog();
-        Log.d(getClass().getName(), "Going to personal list fragment");
+
+        Bundle args = new Bundle();
+        args.putLong(ListDetailActivity.LIST_ID, ListDetailActivity.LIST_PERSONAL);
+
+        Intent intent = new Intent(getActivity(), ListDetailActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void configureButtonsListeners() {

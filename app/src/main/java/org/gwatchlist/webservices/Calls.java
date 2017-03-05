@@ -2,8 +2,11 @@ package org.gwatchlist.webservices;
 
 import android.util.Log;
 
+import org.gwatchlist.data.entities.GList;
 import org.gwatchlist.data.entities.User;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,8 +23,16 @@ public class Calls {
 
     public Calls() {
 
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.apiBasePath)
+                .client(httpClient)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
@@ -48,7 +59,30 @@ public class Calls {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(getClass().getName(), "Could not logged in to user");
-                Log.e(getClass().getName(), "Says: " + t.getMessage());
+                Log.e(getClass().getName(), "Message: " + t.getMessage());
+
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+    public void fetchPersonalList(String ownerEmail, final WSCallback<GList> callback) {
+        Call<GList> call = watchlistService.fetchPersonalList(ownerEmail);
+        call.enqueue(new Callback<GList>() {
+            @Override
+            public void onResponse(Call<GList> call, Response<GList> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(true, response.body());
+                } else {
+                    Log.e(getClass().getName(), "Personal list fetch failed");
+                    callback.onResponse(false, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GList> call, Throwable t) {
+                Log.e(getClass().getName(), "Personal list fetch failed");
+                Log.e(getClass().getName(), "Message: " + t.getMessage());
 
                 callback.onResponse(false, null);
             }
