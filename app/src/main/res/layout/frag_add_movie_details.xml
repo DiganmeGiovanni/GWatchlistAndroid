@@ -1,13 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/movie_poster"
-        android:scaleType="fitEnd"
-        android:contentDescription="@string/app_name" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <!-- Loading details indicator -->
+        <ProgressBar
+            android:id="@+id/pb_loading_indicator"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            tools:visibility="gone"/>
+
+        <!-- Details container -->
+        <LinearLayout
+            android:id="@+id/ll_details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <!-- Release date -->
+            <TextView
+                android:id="@+id/tv_tag_line"
+                android:drawableStart="@drawable/ic_bookmark_black_24dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold"
+                tools:text="How much know about you?"
+                tools:visibility="visible"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- Release date -->
+                <TextView
+                    android:id="@+id/tv_release_date"
+                    android:drawableStart="@drawable/ic_event_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    tools:text="2009, Octubre 27"/>
+
+                <!-- Runtime -->
+                <TextView
+                    android:id="@+id/tv_runtime"
+                    android:drawableStart="@drawable/ic_alarm_black_24dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    tools:text="130 mins."/>
+            </LinearLayout>
+
+            <!-- Runtime -->
+            <TextView
+                android:id="@+id/tv_vote_average"
+                android:drawableStart="@drawable/ic_star_half_black_24dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:text="5.7"/>
+
+            <LinearLayout
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <!-- Directors -->
+                <LinearLayout
+                    android:id="@+id/ll_directors_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:drawableStart="@drawable/ic_group_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/directors"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Genres -->
+                <LinearLayout
+                    android:id="@+id/ll_genres_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:drawableStart="@drawable/ic_movie_creation_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/genres"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Synopsis -->
+            <TextView
+                android:drawableStart="@drawable/ic_label_outline_black_24dp"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/synopsis"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                tools:text="@string/app_name"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

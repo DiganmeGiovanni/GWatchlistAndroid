@@ -90,6 +90,9 @@ public class MovieSearchFragment extends Fragment implements MovieSearchContract
                 @Override
                 public void onMovieSelected(TMDBMovie movie) {
                     Intent intent = new Intent(getContext(), AddMovieDetailActivity.class);
+                    intent.putExtra(AddMovieDetailActivity.TMDB_ID, movie.getId());
+
+
                     startActivity(intent);
                 }
             });

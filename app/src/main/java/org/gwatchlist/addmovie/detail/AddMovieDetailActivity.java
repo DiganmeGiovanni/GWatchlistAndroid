@@ -12,6 +12,8 @@ import org.gwatchlist.util.ActivityUtils;
  * Created by giovanni on 4/03/17.
  */
 public class AddMovieDetailActivity extends AppCompatActivity {
+    public static final String TMDB_ID = "TMDB_ID";
+    public static final String TARGET_LIST_ID = "LIST_ID";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +33,11 @@ public class AddMovieDetailActivity extends AppCompatActivity {
             );
         }
 
+        // Retrieve arguments
+        long listId = getIntent().getLongExtra(TARGET_LIST_ID, 0);
+        long tmdbId = getIntent().getLongExtra(TMDB_ID, 0);
+
         // Initialize presenter
-        // TODO
+        new AddMovieDetailPresenter(addMovieDetailFragment, listId, tmdbId);
     }
 }

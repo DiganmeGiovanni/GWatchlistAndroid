@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="black10">#A6000000</color>
+
+    <color name="translucent_scrim_top">#1A000000</color>
+    <color name="translucent_scrim_top_center">#33000000</color>
+
+    <color name="translucent_scrim_bottom">#99000000</color>
+    <color name="translucent_scrim_bottom_center">#80000000</color>
 </resources>

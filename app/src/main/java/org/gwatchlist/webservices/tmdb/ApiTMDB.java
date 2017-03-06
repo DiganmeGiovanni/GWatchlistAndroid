@@ -5,6 +5,7 @@ import android.util.Log;
 import org.gwatchlist.webservices.Constants;
 import org.gwatchlist.webservices.WSCallback;
 import org.gwatchlist.webservices.tmdb.entities.TMDBMovie;
+import org.gwatchlist.webservices.tmdb.entities.TMDBMovieDetails;
 import org.gwatchlist.webservices.tmdb.entities.TMDBSearchResults;
 
 import java.util.List;
@@ -61,6 +62,29 @@ public class ApiTMDB {
             @Override
             public void onFailure(Call<TMDBSearchResults> call, Throwable t) {
                 Log.w(getClass().getName(), "TMDB Search failed");
+                Log.e(getClass().getName(), "Message: " + t.getMessage());
+
+                callback.onResponse(false, null);
+            }
+        });
+    }
+
+    public void movieDetails(long movieId, final WSCallback<TMDBMovieDetails> callback) {
+        Call<TMDBMovieDetails> call = tmdbService.movieDetails(movieId, apiKey, "credits");
+        call.enqueue(new Callback<TMDBMovieDetails>() {
+            @Override
+            public void onResponse(Call<TMDBMovieDetails> call, Response<TMDBMovieDetails> response) {
+                if (response.isSuccessful()) {
+                    callback.onResponse(true, response.body());
+                } else {
+                    Log.w(getClass().getName(), "TMDB Details request failed");
+                    callback.onResponse(false, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TMDBMovieDetails> call, Throwable t) {
+                Log.w(getClass().getName(), "TMDB Details request failed");
                 Log.e(getClass().getName(), "Message: " + t.getMessage());
 
                 callback.onResponse(false, null);

@@ -18,7 +18,7 @@ public class MovieSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_add_movie);
+        setContentView(R.layout.act_movie_search);
 
         // Set up the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
