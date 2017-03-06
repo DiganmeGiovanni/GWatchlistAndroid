@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,6 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.gwatchlist.R;
 import org.gwatchlist.data.entities.User;
+import org.gwatchlist.databinding.FragLoginBinding;
 import org.gwatchlist.listdetail.ListDetailActivity;
 import org.gwatchlist.util.GraphicUtils;
 
@@ -32,9 +32,9 @@ public class LoginFragment extends Fragment implements LoginContract.View,
     private static final int RESULT_CODE_SIGN_IN = 100;
 
     private LoginContract.Presenter mPresenter;
+    private FragLoginBinding viewBinding;
 
     private GoogleApiClient mGoogleApiClient;
-    private View rootView;
 
 
     @Override
@@ -58,9 +58,10 @@ public class LoginFragment extends Fragment implements LoginContract.View,
                 }
 
             } else {
+                setLoadingIndicator(false);
                 Log.w(getClass().getName(), "Sign in cancelled by user");
 
-                mPresenter.showFailedLogin();
+                showFailedLogin();
             }
         }
     }
@@ -84,9 +85,11 @@ public class LoginFragment extends Fragment implements LoginContract.View,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.frag_login, container, false);
-        this.configureButtonsListeners();
+        View rootView = inflater.inflate(R.layout.frag_login, container, false);
+        viewBinding = FragLoginBinding.bind(rootView);
 
+        mPresenter.attemptAutoLogin();
+        this.configureButtonsListeners();
         return rootView;
     }
 
@@ -102,6 +105,8 @@ public class LoginFragment extends Fragment implements LoginContract.View,
 
     @Override
     public void attemptGoogleLogin() {
+        setLoadingIndicator(true);
+
         Intent signinIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signinIntent, RESULT_CODE_SIGN_IN);
     }
@@ -129,15 +134,25 @@ public class LoginFragment extends Fragment implements LoginContract.View,
         getActivity().finish();
     }
 
+    @Override
+    public void setLoadingIndicator(boolean isLoading) {
+        if (isLoading) {
+            viewBinding.btnLogin.setVisibility(View.GONE);
+            viewBinding.pbLoadingIndicator.setVisibility(View.VISIBLE);
+        } else {
+            viewBinding.pbLoadingIndicator.setVisibility(View.GONE);
+            viewBinding.btnLogin.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void configureButtonsListeners() {
 
         //
         // Configure the login button
-        Button btnLogin = (Button) rootView.findViewById(R.id.btn_login);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        viewBinding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.attemptLogin();
+                attemptGoogleLogin();
             }
         });
     }

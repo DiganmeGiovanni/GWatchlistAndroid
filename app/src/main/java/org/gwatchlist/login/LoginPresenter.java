@@ -14,14 +14,14 @@ import io.realm.RealmObject;
  *
  * Created by giovanni on 1/02/17.
  */
-public class LoginPresenter implements LoginContract.Presenter {
+class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginContract.View mLoginView;
     private Calls calls;
 
     private UserDao userDao;
 
-    public LoginPresenter(@NonNull LoginContract.View loginView) {
+    LoginPresenter(@NonNull LoginContract.View loginView) {
         mLoginView = loginView;
         mLoginView.setPresenter(this);
 
@@ -30,12 +30,25 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void attemptLogin() {
-        mLoginView.attemptGoogleLogin();
+    public void start() {
+
+    }
+
+    @Override
+    public void attemptAutoLogin() {
+        User user = userDao.findActive();
+        if (user != null) {
+
+            // Go to personal list
+            mLoginView.showPersonalList(user);
+        } else {
+            mLoginView.setLoadingIndicator(false);
+        }
     }
 
     @Override
     public void attemptLogin(String email, String name) {
+        mLoginView.setLoadingIndicator(true);
         calls.login(email, name, new WSCallback<User>() {
 
             @Override
@@ -51,18 +64,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                     mLoginView.showPersonalList(user);
                 } else {
                     mLoginView.showFailedLogin();
+                    mLoginView.setLoadingIndicator(false);
                 }
             }
         });
-    }
-
-    @Override
-    public void showFailedLogin() {
-        mLoginView.showFailedLogin();
-    }
-
-    @Override
-    public void start() {
-
     }
 }
